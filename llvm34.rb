@@ -29,9 +29,8 @@ class Llvm34 < Formula
 
   bottle do
     rebuild 1
-    sha256 "2cb08d19398c58824325d5d6535f239078e755d555d21ff00dc56aada694e3b2" => :yosemite
-    sha256 "3cbe768ace7f2c21386ef1955e0a1388bfacdb70e2896944cd64e6cade2e7c74" => :mavericks
-    sha256 "95009c6e37dc4e9da629bf9c844d676b34cce739ea635232132073baace71700" => :mountain_lion
+    root_url "https://www.doc.ic.ac.uk/~amattave/brew"
+    sha256 "1c1c91520512e37703c6c4224cea2a68f6471d29bfa46fab5e4a0845ae6b32b8" => :sierra
   end
 
   head do
