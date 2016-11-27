@@ -11,6 +11,12 @@ class Stp < Formula
     url "https://github.com/stp/stp.git", :branch => "stp-220"
   end
 
+  bottle do
+    rebuild 1
+    root_url "https://www.doc.ic.ac.uk/~amattave/brew"
+    sha256 "228a11559970fad33126f56a005b733f645ec00c9c6f10f23c7977fe292ec5c0" => :sierra
+  end
+  
   depends_on "cmake" => :build
   depends_on "minisat"
   
