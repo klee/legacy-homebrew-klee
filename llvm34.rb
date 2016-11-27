@@ -21,11 +21,6 @@ class Llvm34 < Formula
       sha256 "f37c89b1383ce462d47537a0245ac798600887a9be9f63073e16b79ed536ab5c"
     end
 
-    resource "polly" do
-      url "http://llvm.org/releases/3.4/polly-3.4.src.tar.gz"
-      sha256 "9f1a5fb73dddc0afe47a0f4108dea818e0d1d16485899141957f87f75fa50ee7"
-    end
-
     resource "libcxx" do
       url "http://llvm.org/releases/3.4.2/libcxx-3.4.2.src.tar.gz"
       sha256 "826543ee2feb5d3313b0705145255ebb2ed8d52eace878279c2525ccde6e727c"
@@ -52,10 +47,6 @@ class Llvm34 < Formula
 
     resource "compiler-rt" do
       url "http://llvm.org/git/compiler-rt.git", :branch => "release_34"
-    end
-
-    resource "polly" do
-      url "http://llvm.org/git/polly.git", :branch => "release_34"
     end
 
     resource "libcxx" do
@@ -99,7 +90,6 @@ class Llvm34 < Formula
 
     clang_buildpath.install resource("clang")
     libcxx_buildpath.install resource("libcxx")
-    (buildpath/"tools/polly").install resource("polly")
     (buildpath/"tools/clang/tools/extra").install resource("clang-tools-extra")
     (buildpath/"projects/compiler-rt").install resource("compiler-rt") if build.with? "asan"
 
