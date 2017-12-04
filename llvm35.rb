@@ -34,7 +34,7 @@ class Llvm35 < Formula
 
   bottle do
     rebuild 1
-    root_url "https://www.doc.ic.ac.uk/~amattave/brew"
+    root_url "https://srg.doc.ic.ac.uk/brew"
     sha256 "5cc02999c31a3a48357c56782adc62db31bed17410ee83d490bf4a58438c05fa" => :sierra
   end
 

@@ -58,8 +58,8 @@ class Llvm36 < Formula
 
   bottle do
     cellar :any
-    rebuild 3
-    root_url "https://www.doc.ic.ac.uk/~amattave/brew"
+    rebuild 1
+    root_url "https://srg.doc.ic.ac.uk/brew"
     sha256 "299f8239b5ba643464d6520bcf916402fa410732a51b56c7e83863f5f3583d4a" => :sierra
   end
 

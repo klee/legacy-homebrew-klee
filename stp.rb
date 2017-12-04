@@ -13,13 +13,13 @@ class Stp < Formula
 
   bottle do
     rebuild 1
-    root_url "https://www.doc.ic.ac.uk/~amattave/brew"
+    root_url "https://srg.doc.ic.ac.uk/brew"
     sha256 "228a11559970fad33126f56a005b733f645ec00c9c6f10f23c7977fe292ec5c0" => :sierra
   end
-  
+
   depends_on "cmake" => :build
   depends_on "minisat"
-  
+
   def install
     system "cmake" , "-DCMAKE_INSTALL_PREFIX=#{prefix}",
                      "-DENABLE_PYTHON_INTERFACE:BOOL=OFF",
