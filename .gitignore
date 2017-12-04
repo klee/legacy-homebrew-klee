@@ -1,0 +1,6 @@
+# General
+.DS_Store
+
+# Bottles
+*.tar.gz
+*.zip
