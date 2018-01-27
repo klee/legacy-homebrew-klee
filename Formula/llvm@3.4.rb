@@ -16,11 +16,6 @@ class LlvmAT34 < Formula
       sha256 "ba85187551ae97fe1c8ab569903beae5ff0900e21233e5eb5389f6ceab1028b4"
     end
 
-    resource "polly" do
-      url "http://llvm.org/releases/3.4/polly-3.4.src.tar.gz"
-      sha256 "9f1a5fb73dddc0afe47a0f4108dea818e0d1d16485899141957f87f75fa50ee7"
-    end
-
     resource "libcxx" do
       url "http://llvm.org/releases/3.4.2/libcxx-3.4.2.src.tar.gz"
       sha256 "826543ee2feb5d3313b0705145255ebb2ed8d52eace878279c2525ccde6e727c"
@@ -44,10 +39,6 @@ class LlvmAT34 < Formula
       url "http://llvm.org/git/clang-tools-extra.git", :branch => "release_34"
     end
 
-    resource "polly" do
-      url "http://llvm.org/git/polly.git", :branch => "release_34"
-    end
-
     resource "libcxx" do
       url "http://llvm.org/git/libcxx.git", :branch => "release_34"
     end
@@ -65,9 +56,7 @@ class LlvmAT34 < Formula
     end
   end
 
-  depends_on "gmp@4"
-  depends_on "isl@0.12"
-  depends_on "cloog@0.18"
+  depends_on "gmp"
   depends_on "libffi"
 
   patch :DATA
@@ -87,7 +76,6 @@ class LlvmAT34 < Formula
 
     clang_buildpath.install resource("clang")
     libcxx_buildpath.install resource("libcxx")
-    (buildpath/"tools/polly").install resource("polly")
     (buildpath/"tools/clang/tools/extra").install resource("clang-tools-extra")
 
     ENV["REQUIRES_RTTI"] = "1"
@@ -98,9 +86,7 @@ class LlvmAT34 < Formula
       "--prefix=#{install_prefix}",
       "--enable-optimized",
       "--disable-bindings",
-      "--with-gmp=#{Formula["gmp@4"].opt_prefix}",
-      "--with-isl=#{Formula["isl@0.12"].opt_prefix}",
-      "--with-cloog=#{Formula["cloog@0.18"].opt_prefix}",
+      "--with-gmp=#{Formula["gmp"].opt_prefix}",
       "--enable-shared",
       "--enable-targets=host",
       "--enable-libffi",
