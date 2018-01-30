@@ -1,4 +1,4 @@
-class Llvm34 < Formula
+class LlvmAT34 < Formula
   desc "Next-gen compiler infrastructure"
   homepage "http://llvm.org/"
 
@@ -16,21 +16,16 @@ class Llvm34 < Formula
       sha256 "ba85187551ae97fe1c8ab569903beae5ff0900e21233e5eb5389f6ceab1028b4"
     end
 
-    resource "compiler-rt" do
-      url "http://llvm.org/releases/3.4/compiler-rt-3.4.src.tar.gz"
-      sha256 "f37c89b1383ce462d47537a0245ac798600887a9be9f63073e16b79ed536ab5c"
-    end
-
     resource "libcxx" do
       url "http://llvm.org/releases/3.4.2/libcxx-3.4.2.src.tar.gz"
       sha256 "826543ee2feb5d3313b0705145255ebb2ed8d52eace878279c2525ccde6e727c"
     end
-  end
 
-  bottle do
-    rebuild 1
-    root_url "https://srg.doc.ic.ac.uk/brew"
-    sha256 "1c1c91520512e37703c6c4224cea2a68f6471d29bfa46fab5e4a0845ae6b32b8" => :sierra
+    if MacOS.version <= :snow_leopard
+      resource "libcxxabi" do
+        url "http://llvm.org/git/libcxxabi.git", :branch => "release_32"
+      end
+    end
   end
 
   head do
@@ -44,35 +39,27 @@ class Llvm34 < Formula
       url "http://llvm.org/git/clang-tools-extra.git", :branch => "release_34"
     end
 
-    resource "compiler-rt" do
-      url "http://llvm.org/git/compiler-rt.git", :branch => "release_34"
-    end
-
     resource "libcxx" do
       url "http://llvm.org/git/libcxx.git", :branch => "release_34"
     end
+
+    if MacOS.version <= :snow_leopard
+      resource "libcxxabi" do
+        url "http://llvm.org/git/libcxxabi.git", :branch => "release_32"
+      end
+    end
   end
 
-  resource "libcxxabi" do
-    url "http://llvm.org/git/libcxxabi.git", :branch => "release_32"
-  end if MacOS.version <= :snow_leopard
+  if MacOS.version <= :snow_leopard
+    resource "libcxxabi" do
+      url "http://llvm.org/git/libcxxabi.git", :branch => "release_32"
+    end
+  end
+
+  depends_on "gmp"
+  depends_on "libffi"
 
   patch :DATA
-
-  option :universal
-  option "with-asan", "Include support for -faddress-sanitizer (from compiler-rt)"
-  option "without-shared", "Don't build LLVM as a shared library"
-  option "with-all-targets", "Build all target backends"
-  option "without-assertions", "Speeds up LLVM, but provides less debug information"
-
-  deprecated_option "disable-shared" => "without-shared"
-  deprecated_option "all-targets" => "with-all-targets"
-  deprecated_option "disable-assertions" => "without-assertions"
-
-  depends_on "gmp@4"
-  depends_on "isl@0.12"
-  depends_on "cloog"
-  depends_on "libffi" => :recommended
 
   # version suffix
   def ver
@@ -90,13 +77,6 @@ class Llvm34 < Formula
     clang_buildpath.install resource("clang")
     libcxx_buildpath.install resource("libcxx")
     (buildpath/"tools/clang/tools/extra").install resource("clang-tools-extra")
-    (buildpath/"projects/compiler-rt").install resource("compiler-rt") if build.with? "asan"
-
-    if build.universal?
-      ENV.permit_arch_flags
-      ENV["UNIVERSAL"] = "1"
-      ENV["UNIVERSAL_ARCH"] = Hardware::CPU.universal_archs.join(" ")
-    end
 
     ENV["REQUIRES_RTTI"] = "1"
 
@@ -107,21 +87,10 @@ class Llvm34 < Formula
       "--enable-optimized",
       "--disable-bindings",
       "--with-gmp=#{Formula["gmp"].opt_prefix}",
-      "--with-isl=#{Formula["isl"].opt_prefix}",
-      "--with-cloog=#{Formula["cloog"].opt_prefix}",
+      "--enable-shared",
+      "--enable-targets=host",
+      "--enable-libffi",
     ]
-
-    if build.include? "all-targets"
-      args << "--enable-targets=all"
-    else
-      args << "--enable-targets=host"
-    end
-
-    args << "--enable-shared" unless build.include? "disable-shared"
-
-    args << "--disable-assertions" if build.include? "disable-assertions"
-
-    args << "--enable-libffi" if build.with? "libffi"
 
     system "./configure", *args
     system "make", "VERBOSE=1"
