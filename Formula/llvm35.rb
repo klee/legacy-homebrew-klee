@@ -87,7 +87,6 @@ class Llvm35 < Formula
 
   # Apple's libstdc++ is too old to build LLVM
   fails_with :gcc
-  fails_with :llvm
 
   # version suffix
   def ver
