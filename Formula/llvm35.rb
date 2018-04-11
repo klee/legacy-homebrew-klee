@@ -78,16 +78,15 @@ class Llvm35 < Formula
   deprecated_option "disable-assertions" => "without-assertions"
 
   if MacOS.version <= :snow_leopard
-    depends_on :python
+    depends_on "python@2"
   else
-    depends_on :python => :optional
+    depends_on "python@2" => :optional
   end
   depends_on "cmake" => :build
   depends_on "swig" if build.with? "lldb"
 
   # Apple's libstdc++ is too old to build LLVM
   fails_with :gcc
-  fails_with :llvm
 
   # version suffix
   def ver
