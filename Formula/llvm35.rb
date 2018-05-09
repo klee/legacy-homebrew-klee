@@ -147,7 +147,7 @@ class Llvm35 < Formula
   end
 
   def caveats
-    <<-EOS.undent
+    <<~EOS
       LLVM executables are installed in #{opt_bin}.
       Extra tools are installed in #{opt_share}/llvm.
     EOS
