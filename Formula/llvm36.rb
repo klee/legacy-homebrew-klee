@@ -10,7 +10,7 @@ class CodesignRequirement < Requirement
   end
 
   def message
-    <<-EOS.undent
+    <<~EOS
       lldb_codesign identity must be available to build with LLDB.
       See: https://llvm.org/svn/llvm-project/lldb/trunk/docs/code-signing.txt
     EOS
@@ -221,13 +221,13 @@ class Llvm36 < Formula
   end
 
   def caveats
-    s = <<-EOS.undent
+    s = <<~EOS
       LLVM executables are installed in #{opt_bin}.
       Extra tools are installed in #{opt_share}/llvm.
     EOS
 
     if build.with? "libcxx"
-      s += <<-EOS.undent
+      s += <<~EOS
         To use the bundled libc++ please add the following LDFLAGS:
           LDFLAGS="-L#{opt_lib} -lc++abi"
       EOS
@@ -240,7 +240,7 @@ class Llvm36 < Formula
     assert_equal prefix.to_s, shell_output("#{bin}/llvm-config --prefix").chomp
 
     if build.with? "clang"
-      (testpath/"test.cpp").write <<-EOS.undent
+      (testpath/"test.cpp").write <<~EOS
         #include <iostream>
         using namespace std;
 

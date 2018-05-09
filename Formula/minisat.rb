@@ -16,7 +16,7 @@ class Minisat < Formula
   end
 
   test do
-    dimacs = <<-EOS.undent
+    dimacs = <<~EOS
       p cnf 3 2
       1 -3 0
       2 3 -1 0
