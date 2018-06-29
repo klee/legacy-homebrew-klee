@@ -11,7 +11,7 @@ class Klee < Formula
     url "https://github.com/klee/klee.git", :branch => "1.2.x"
   end
   
-  depends_on "klee/klee/llvm34"
+  depends_on "klee/klee/llvm@3.4"
   depends_on "klee/klee/stp"
 
   def install
