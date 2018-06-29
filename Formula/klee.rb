@@ -11,8 +11,8 @@ class Klee < Formula
     url "https://github.com/klee/klee.git", :branch => "1.2.x"
   end
   
-  depends_on "andreamattavelli/klee/llvm34"
-  depends_on "andreamattavelli/klee/stp"
+  depends_on "klee/klee/llvm34"
+  depends_on "klee/klee/stp"
 
   def install
     system "./configure", "--with-stp=#{Formula["andreamattavelli/klee/stp"].opt_prefix}",
