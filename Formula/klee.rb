@@ -15,7 +15,7 @@ class Klee < Formula
   depends_on "klee/klee/stp"
 
   def install
-    system "./configure", "--with-stp=#{Formula["andreamattavelli/klee/stp"].opt_prefix}",
+    system "./configure", "--with-stp=#{Formula["klee/klee/stp"].opt_prefix}",
                           "--prefix=#{prefix}"
     system "make"
     system "make", "install"
