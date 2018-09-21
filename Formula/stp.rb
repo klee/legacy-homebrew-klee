@@ -18,7 +18,7 @@ class Stp < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "minisat"
+  depends_on "klee/klee/minisat"
 
   def install
     system "cmake" , "-DCMAKE_INSTALL_PREFIX=#{prefix}",
